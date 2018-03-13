@@ -115,7 +115,7 @@ test(`Some changed to Another, Simple and Test are deleted,
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'With'},
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Additional'},
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Lines'},
-    { type: TYPE_DELETED, value: 'Test'},
+    { type: TYPE_DELETED, value: 'Test'}
   ]);
 });
 
@@ -135,7 +135,7 @@ test(`Some changed to Another, Simple is deleted,
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'With'},
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Additional'},
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Lines'},
-    { type: TYPE_DELETED, value: 'Test'},
+    { type: TYPE_DELETED, value: 'Test'}
   ]);
 });
 
@@ -155,7 +155,46 @@ test(`Some changed to Another, Simple is deleted,
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'With'},
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Additional'},
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Lines'},
-    { type: TYPE_ADDED, value: 'Addnew'},
+    { type: TYPE_ADDED, value: 'Addnew'}
+  ]);
+});
+
+test(`Some changed to Another, Simple is deleted,
+  Text and File have duplicates and 3 Test values are changed and Addnew is added`, () => {
+  const array1 = ['Test', 'Row', 'Slime', 'Simple', 'Odd', 'Some', 'Index', 'Love',
+    'Some', 'Goal', 'Profile', 'Simple', 'Slime'];
+
+  const array2 = ['Some', 'Simple', 'Text', 'File', 'Some', 'Simple', 'Text', 'File',
+    'Some', 'Simple', 'Text', 'File', 'Some', 'Simple', 'Text', 'File', 'Some', 'Simple',
+    'Test', 'Text', 'File'
+  ];
+
+  const result = compare(array1, array2);
+
+  expect(result).toEqual([
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Some'},
+    { type: TYPE_CHANGED, firstValue: 'Row', secondValue: 'Simple'},
+    { type: TYPE_CHANGED, firstValue: 'Slime', secondValue: 'Text'},
+    { type: TYPE_ADDED, value: 'File'},
+    { type: TYPE_ADDED, value: 'Some'},
+    { type: TYPE_PAIR, value: 'Simple', firstIndex: 3, secondIndex: 5 },
+    { type: TYPE_CHANGED, firstValue: 'Odd', secondValue: 'Text'},
+    { type: TYPE_ADDED, value: 'File'},
+    { type: TYPE_PAIR, value: 'Some', firstIndex: 5, secondIndex: 8 },
+    { type: TYPE_CHANGED, firstValue: 'Index', secondValue: 'Simple'},
+    { type: TYPE_CHANGED, firstValue: 'Love', secondValue: 'Text'},
+    { type: TYPE_ADDED, value: 'File'},
+    { type: TYPE_PAIR, value: 'Some', firstIndex: 8, secondIndex: 12 },
+    { type: TYPE_DELETED, value: 'Goal'},
+    { type: TYPE_DELETED, value: 'Profile'},
+    { type: TYPE_PAIR, value: 'Simple', firstIndex: 11, secondIndex: 13 },
+    { type: TYPE_CHANGED, firstValue: 'Slime', secondValue: 'Text'},
+    { type: TYPE_ADDED, value: 'File'},
+    { type: TYPE_ADDED, value: 'Some'},
+    { type: TYPE_ADDED, value: 'Simple'},
+    { type: TYPE_ADDED, value: 'Test'},
+    { type: TYPE_ADDED, value: 'Text'},
+    { type: TYPE_ADDED, value: 'File'}
   ]);
 });
 
