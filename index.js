@@ -1,10 +1,11 @@
 'use strict';
 
-const compare = require('./lib/compare');
+const compareFiles = require('./lib/compareFiles/index');
 
-const array1 = ['Some', 'Simple', 'Text', 'File'];
-const array2 = ['Another', 'Text', 'File', 'With', 'Additional', 'Lines'];
+const argv = process.argv.slice(-2);
+const filePath = __dirname;
+const directory = 'files';
+const firstFilePath = filePath + '/' + directory + '/' + argv[0];
+const secondFilePath = filePath + '/' + directory + '/' + argv[1];
 
-const result = compare(array1, array2);
-
-console.log('------>', result);
+compareFiles(firstFilePath, secondFilePath);

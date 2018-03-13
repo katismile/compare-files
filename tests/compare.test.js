@@ -1,6 +1,6 @@
-const compare = require('../lib/compare');
+const compare = require('../lib/compareFiles/compare');
 
-const { TYPE_ADDED, TYPE_DELETED, TYPE_CHANGED, TYPE_PAIR } = require('../constants');
+const { TYPE_ADDED, TYPE_DELETED, TYPE_CHANGED, TYPE_PAIR } = require('../lib/compareFiles/constants');
 
 test('If files are empty it returns no difference', () => {
   const array1 = [];
