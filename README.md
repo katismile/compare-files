@@ -1,29 +1,12 @@
-# README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+* Application for comparing two files by word differences *
 
-### What is this repository for? ###
+Required Nodejs version ">=8"
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Deploy steps:
+1. npm i
+2. npm start -firstFileName -secondFileName
+    Example: npm start 'sample-1.txt' 'sample-2.txt'
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Command for launching test:
+    npm test
