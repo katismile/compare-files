@@ -139,6 +139,26 @@ test(`Some changed to Another, Simple is deleted,
   ]);
 });
 
+test(`Some changed to Another, Simple is deleted,
+  Text and File have duplicates and 3 Test values are changed and Addnew is added`, () => {
+  const array1 = ['Some', 'Text', 'File', 'Test', 'Test', 'Test'];
+  const array2 = ['Another', 'Simple',  'Test', 'Text', 'File', 'With', 'Additional', 'Lines', 'Addnew'];
+
+  const result = compare(array1, array2);
+
+  expect(result).toEqual([
+    { type: TYPE_CHANGED, firstValue: 'Some', secondValue: 'Another'},
+    { type: TYPE_ADDED, value: 'Simple'},
+    { type: TYPE_ADDED, value: 'Test'},
+    { type: TYPE_PAIR, value: 'Text', firstIndex: 1, secondIndex: 3 },
+    { type: TYPE_PAIR, value: 'File', firstIndex: 2, secondIndex: 4 },
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'With'},
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Additional'},
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Lines'},
+    { type: TYPE_ADDED, value: 'Addnew'},
+  ]);
+});
+
 test(`Arrays\' langthes are the same and all values different`, () => {
   const array1 = ['1', '2', '3', '4'];
   const array2 = ['5', '6', '7', '8'];
