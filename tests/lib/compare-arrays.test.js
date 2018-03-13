@@ -82,7 +82,7 @@ test('3 value added', () => {
 });
 
 test(`Some changed to Another, Simple is deleted,
-  Text and File have duplicates and 4 value added`, () => {
+  Text and File have duplicates and 3 value added`, () => {
   const array1 = ['Some', 'Simple', 'Text', 'File'];
   const array2 = ['Another', 'Text', 'File', 'With', 'Additional', 'Lines'];
 
@@ -99,8 +99,8 @@ test(`Some changed to Another, Simple is deleted,
   ]);
 });
 
-test(`Some changed to Another, Simple is deleted,
-  Text and File have duplicates and 5 value added`, () => {
+test(`Some changed to Another, Simple and Test are deleted,
+  Text and File have duplicates, 3 Test values changed to another values, and last test is deleted`, () => {
   const array1 = ['Some', 'Simple',  'Test', 'Text', 'File', 'Test', 'Test', 'Test', 'Test'];
   const array2 = ['Another', 'Text', 'File', 'With', 'Additional', 'Lines'];
 
@@ -120,7 +120,7 @@ test(`Some changed to Another, Simple is deleted,
 });
 
 test(`Some changed to Another, Simple is deleted,
-  Text and File have duplicates and 6  value added`, () => {
+  Text and File have duplicates and 3 Test values are changed and last one is deleted`, () => {
   const array1 = ['Some', 'Text', 'File', 'Test', 'Test', 'Test', 'Test'];
   const array2 = ['Another', 'Simple',  'Test', 'Text', 'File', 'With', 'Additional', 'Lines'];
 
@@ -136,5 +136,19 @@ test(`Some changed to Another, Simple is deleted,
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Additional'},
     { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Lines'},
     { type: TYPE_DELETED, value: 'Test'},
+  ]);
+});
+
+test(`Arrays\' langthes are the same and all values different`, () => {
+  const array1 = ['1', '2', '3', '4'];
+  const array2 = ['5', '6', '7', '8'];
+
+  const result = compare(array1, array2);
+
+  expect(result).toEqual([
+    { type: TYPE_CHANGED, firstValue: '1', secondValue: '5'},
+    { type: TYPE_CHANGED, firstValue: '2', secondValue: '6'},
+    { type: TYPE_CHANGED, firstValue: '3', secondValue: '7'},
+    { type: TYPE_CHANGED, firstValue: '4', secondValue: '8'}
   ]);
 });
