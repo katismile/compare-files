@@ -14,13 +14,18 @@ const firstFilePath = filePath + '/' + directory + '/' + argv[0];
 const secondFilePath = filePath + '/' + directory + '/' + argv[1];
 
 const compareFiles = async (firstFilePath, secondFilePath) => {
-  const firstFileData = await readFile(firstFilePath, "utf8");
-  const secondFileData = await readFile(secondFilePath, "utf8");
+  try {
+    const firstFileData = await readFile(firstFilePath, "utf8");
+    const secondFileData = await readFile(secondFilePath, "utf8");
 
-  const data = compareWords(firstFileData, secondFileData);
+    const data = compareWords(firstFileData, secondFileData);
 
-  const result = format(data);
-  process.stdout.write(result);
+    return format(data);
+  } catch (error) {
+    throw new Error('Invalid request');
+  }
 };
 
-compareFiles(firstFilePath, secondFilePath);
+compareFiles(firstFilePath, secondFilePath)
+  .then(result => process.stdout.write(result))
+  .catch(error => console.error(error));
