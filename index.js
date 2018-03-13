@@ -17,8 +17,8 @@ const compareFiles = async (firstFilePath, secondFilePath) => {
   const result1 = await readFile(firstFilePath, "utf8");
   const result2 = await readFile(secondFilePath, "utf8");
 
-  const separator = '\n';
-  const data = compareWords(result1, result2, separator);
+  const data = compareWords(result1, result2);
+
   const result = format(data);
   process.stdout.write(result);
 };

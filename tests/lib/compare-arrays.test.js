@@ -1,6 +1,6 @@
-const compare = require('../lib/compareWords/compare');
+const compare = require('../../lib/compareWords/compare-arrays');
 
-const { TYPE_ADDED, TYPE_DELETED, TYPE_CHANGED, TYPE_PAIR } = require('../lib/compareWords/constants');
+const { TYPE_ADDED, TYPE_DELETED, TYPE_CHANGED, TYPE_PAIR } = require('../../lib/compareWords/constants');
 
 test('If files are empty it returns no difference', () => {
   const array1 = [];
@@ -29,6 +29,17 @@ test('Test is deleted', () => {
   const result = compare(array1, array2);
 
   expect(result).toEqual([{ type: TYPE_DELETED, value: 'Test'}]);
+});
+
+test('Text is added', () => {
+  const array1 = [];
+  const array2 = ['Text'];
+
+  const result = compare(array1, array2);
+
+  expect(result).toEqual([
+    { type: TYPE_ADDED, value: 'Text' }
+  ]);
 });
 
 test('Simple is deleted and one pair exists', () => {
@@ -70,8 +81,8 @@ test('3 value added', () => {
   ]);
 });
 
-test(`Some changed to Another, Simple is deleted, 
-  Text and File have duplicates and 3 value added`, () => {
+test(`Some changed to Another, Simple is deleted,
+  Text and File have duplicates and 4 value added`, () => {
   const array1 = ['Some', 'Simple', 'Text', 'File'];
   const array2 = ['Another', 'Text', 'File', 'With', 'Additional', 'Lines'];
 
@@ -85,5 +96,45 @@ test(`Some changed to Another, Simple is deleted,
     { type: TYPE_ADDED, value: 'With' },
     { type: TYPE_ADDED, value: 'Additional' },
     { type: TYPE_ADDED, value: 'Lines' }
+  ]);
+});
+
+test(`Some changed to Another, Simple is deleted,
+  Text and File have duplicates and 5 value added`, () => {
+  const array1 = ['Some', 'Simple',  'Test', 'Text', 'File', 'Test', 'Test', 'Test', 'Test'];
+  const array2 = ['Another', 'Text', 'File', 'With', 'Additional', 'Lines'];
+
+  const result = compare(array1, array2);
+
+  expect(result).toEqual([
+    { type: TYPE_CHANGED, firstValue: 'Some', secondValue: 'Another'},
+    { type: TYPE_DELETED, value: 'Simple'},
+    { type: TYPE_DELETED, value: 'Test'},
+    { type: TYPE_PAIR, value: 'Text', firstIndex: 3, secondIndex: 1 },
+    { type: TYPE_PAIR, value: 'File', firstIndex: 4, secondIndex: 2 },
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'With'},
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Additional'},
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Lines'},
+    { type: TYPE_DELETED, value: 'Test'},
+  ]);
+});
+
+test(`Some changed to Another, Simple is deleted,
+  Text and File have duplicates and 6  value added`, () => {
+  const array1 = ['Some', 'Text', 'File', 'Test', 'Test', 'Test', 'Test'];
+  const array2 = ['Another', 'Simple',  'Test', 'Text', 'File', 'With', 'Additional', 'Lines'];
+
+  const result = compare(array1, array2);
+
+  expect(result).toEqual([
+    { type: TYPE_CHANGED, firstValue: 'Some', secondValue: 'Another'},
+    { type: TYPE_ADDED, value: 'Simple'},
+    { type: TYPE_ADDED, value: 'Test'},
+    { type: TYPE_PAIR, value: 'Text', firstIndex: 1, secondIndex: 3 },
+    { type: TYPE_PAIR, value: 'File', firstIndex: 2, secondIndex: 4 },
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'With'},
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Additional'},
+    { type: TYPE_CHANGED, firstValue: 'Test', secondValue: 'Lines'},
+    { type: TYPE_DELETED, value: 'Test'},
   ]);
 });
