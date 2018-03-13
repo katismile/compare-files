@@ -4,7 +4,7 @@ const fs = require('fs');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
 
-const compareWords = require('./lib/compareWords/index');
+const compareWords = require('./lib/compare-words/index');
 const format = require('./lib/format');
 
 const argv = process.argv.slice(-2);
