@@ -1,0 +1,6 @@
+{
+  "TYPE_ADDED": 1,
+  "TYPE_DELETED": 2,
+  "TYPE_CHANGED": 3,
+  "TYPE_PAIR": 4
+}
