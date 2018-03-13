@@ -14,10 +14,10 @@ const firstFilePath = filePath + '/' + directory + '/' + argv[0];
 const secondFilePath = filePath + '/' + directory + '/' + argv[1];
 
 const compareFiles = async (firstFilePath, secondFilePath) => {
-  const result1 = await readFile(firstFilePath, "utf8");
-  const result2 = await readFile(secondFilePath, "utf8");
+  const firstFileData = await readFile(firstFilePath, "utf8");
+  const secondFileData = await readFile(secondFilePath, "utf8");
 
-  const data = compareWords(result1, result2);
+  const data = compareWords(firstFileData, secondFileData);
 
   const result = format(data);
   process.stdout.write(result);
